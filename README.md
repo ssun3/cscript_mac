@@ -110,6 +110,33 @@ CSCRIPT_FLAGS="-I. -I/opt/homebrew/opt/jemalloc/include -I/opt/homebrew/opt/libs
 
 For a more comprehensive example that also uses the arena allocator, simply add the arena example code to your file and include the appropriate header.
 
+### Example: Using with watchexec
+
+For development, you can use watchexec to automatically rerun your script when files change. First install watchexec:
+
+On macOS with Homebrew:
+```bash
+brew install watchexec
+```
+
+Then you can use it to automatically run your C script whenever it changes:
+
+```bash
+watchexec -c -r -- "cscript your_script.c"
+```
+
+For scripts using external libraries, include your CSCRIPT_FLAGS:
+
+```bash
+watchexec -c -r -- "CSCRIPT_FLAGS='-lcurl -Wall' cscript your_script.c"
+```
+
+The flags used above:
+- `-c`: Clear the screen between runs
+- `-r`: Restart the command if it's still running when changes occur
+
+This is particularly useful during development as it allows you to see your changes in real-time without manually rerunning the script.
+
 ## License
 
 This program is licensed under the GNU General Public License v2.0.
